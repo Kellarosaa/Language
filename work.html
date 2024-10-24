@@ -1,5 +1,3 @@
-# Button Redirect Script
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,7 +7,7 @@
 </head>
 <body>
     <script>
-        const rawText = "redirbutton(click me!)-example.com"; // Replace this with the raw GitHub file content
+        const rawText = "redirbutton(redirect)-example.com"; // Replace this with the raw GitHub file content
         const regex = /redirbutton\((.*?)\)-(.+)/;
         const match = rawText.match(regex);
 
@@ -36,7 +34,7 @@
     <title>Dynamic Button Redirect</title>
     <script>
         function createButton() {
-            const rawText = "button(click me!)-example.com"; // Replace this with the raw GitHub file content
+            const rawText = "button(open)-example.com"; // Replace this with the raw GitHub file content
             const parts = rawText.split('-');
             if (parts.length === 2 && parts[0].startsWith('button(') && parts[0].endsWith(')')) {
                 const buttonText = parts[0].slice(7, -1);
