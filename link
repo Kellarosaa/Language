@@ -1,1 +1,31 @@
-https://zzzcode.ai/html/code-generator?id=ba1c2da6-bde2-40c4-a1ea-52aa16cda88e
+# Button Redirect Script
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dynamic Button Redirect</title>
+</head>
+<body>
+    <script>
+        const rawText = "button(click me!)-example.com"; // Replace this with the raw GitHub file content
+        const regex = /button\((.*?)\)-(.+)/;
+        const match = rawText.match(regex);
+
+        if (match) {
+            const buttonText = match[1];
+            const url = match[2];
+
+            const button = document.createElement('button');
+            button.innerText = buttonText;
+            button.onclick = function() {
+                window.open(`https://${url}`, '_blank');
+            };
+
+            document.body.appendChild(button);
+        }
+    </script>
+</body>
+</html>
+
