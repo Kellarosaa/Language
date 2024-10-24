@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dynamic Button Redirect</title>
+    <script>
+        function createButton() {
+            const rawText = "button(click me!)-example.com"; // Replace this with the raw GitHub file content
+            const parts = rawText.split('-');
+            if (parts.length === 2 && parts[0].startsWith('button(') && parts[0].endsWith(')')) {
+                const buttonText = parts[0].slice(7, -1);
+                const url = parts[1];
+                const button = document.createElement('button');
+                button.innerText = buttonText;
+                button.onclick = function() {
+                    window.location.href = 'https://' + url;
+                };
+                document.body.appendChild(button);
+            }
+        }
+        window.onload = createButton;
+    </script>
+</head>
+<body>
+</body>
+</html>
