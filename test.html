@@ -1,0 +1,35 @@
+# GitHub Button Redirect Script
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dynamic Button Redirect</title>
+    <script>
+        function createButton(text, url) {
+            const button = document.createElement('button');
+            button.innerText = text;
+            button.onclick = function() {
+                window.location.href = url;
+            };
+            document.body.appendChild(button);
+        }
+
+        fetch('https://raw.githubusercontent.com/Kellarosaa/ss-workload/refs/heads/main/index.ss')
+            .then(response => response.text())
+            .then(data => {
+                const regex = /button\((.*?)\)-(.+)/;
+                const match = data.match(regex);
+                if (match) {
+                    const buttonText = match[1];
+                    const redirectUrl = match[2];
+                    createButton(buttonText, redirectUrl);
+                }
+            })
+            .catch(error => console.error('Error fetching the file:', error));
+    </script>
+</head>
+<body>
+</body>
+</html>
