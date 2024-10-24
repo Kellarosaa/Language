@@ -1,38 +1,45 @@
-# GitHub Raw File Button Generator
+# GitHub Button Generator
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Button Generator</title>
+    <title>Dynamic Button Generator</title>
+    <style>
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+    </style>
 </head>
 <body>
-    <h1>Button Generator from GitHub Raw File</h1>
-    <input type="text" id="fileInput" placeholder="https://raw.githubusercontent.com/Kellarosaa/ss-workload/refs/heads/main/index.ss">
-    <button id="generateButton">Generate Button</button>
-    <div id="buttonContainer"></div>
 
-    <script>
-        document.getElementById('generateButton').addEventListener('click', function() {
-            const url = document.getElementById('fileInput').value;
-            fetch(url)
-                .then(response => response.text())
-                .then(data => {
-                    const regex = /button\(Click here\)-(.+?)(?=\s|$)/g;
-                    let match;
-                    const container = document.getElementById('buttonContainer');
-                    container.innerHTML = '';
-                    while ((match = regex.exec(data)) !== null) {
-                        const link = match[1];
-                        const button = document.createElement('button');
-                        button.textContent = 'Click here';
-                        button.onclick = () => window.open(link, '_blank');
-                        container.appendChild(button);
-                    }
-                })
-                .catch(error => console.error('Error fetching the file:', error));
+<div id="button-container"></div>
+
+<script>
+    const rawGitLink = "https://raw.githubusercontent.com/user/repo/branch/file.txt"; // Replace with your raw git link
+
+    fetch(rawGitLink)
+        .then(response => response.text())
+        .then(data => {
+            const regex = /button\(([^)]+)-([^)]+)\)/g;
+            let match;
+            while ((match = regex.exec(data)) !== null) {
+                const buttonText = match[1];
+                const buttonLink = match[2];
+                createButton(buttonText, buttonLink);
+            }
         });
-    </script>
+
+    function createButton(text, link) {
+        const button = document.createElement('button');
+        button.innerText = text;
+        button.onclick = () => window.open(`https://${link}`, '_blank');
+        document.getElementById('button-container').appendChild(button);
+    }
+</script>
+
 </body>
 </html>
