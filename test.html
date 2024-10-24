@@ -1,33 +1,32 @@
-# GitHub Button Redirect Script
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dynamic Button Redirect</title>
+    <title>Dynamic Button Example</title>
     <script>
-        function createButton(text, url) {
+        async function fetchGitHubFile() {
+            const response = await fetch('https://raw.githubusercontent.com/Kellarosaa/ss-workload/refs/heads/main/index.ss');
+            const text = await response.text();
+            const regex = /button\((.*?)\)-(.+)/;
+            const match = text.match(regex);
+            if (match) {
+                const buttonText = match[1];
+                const url = match[2];
+                createButton(buttonText, url);
+            }
+        }
+
+        function createButton(buttonText, url) {
             const button = document.createElement('button');
-            button.innerText = text;
-            button.onclick = function() {
-                window.location.href = url;
+            button.innerText = buttonText;
+            button.onclick = () => {
+                window.open(url, '_blank');
             };
             document.body.appendChild(button);
         }
 
-        fetch('https://raw.githubusercontent.com/Kellarosaa/ss-workload/refs/heads/main/index.ss')
-            .then(response => response.text())
-            .then(data => {
-                const regex = /button\((.*?)\)-(.+)/;
-                const match = data.match(regex);
-                if (match) {
-                    const buttonText = match[1];
-                    const redirectUrl = match[2];
-                    createButton(buttonText, redirectUrl);
-                }
-            })
-            .catch(error => console.error('Error fetching the file:', error));
+        window.onload = fetchGitHubFile;
     </script>
 </head>
 <body>
